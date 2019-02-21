@@ -1,9 +1,9 @@
 spring:
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test
-    username:
-    password:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://db4free.net:3306/mazevent
+    username: mazghul
+    password: mazghul!
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true

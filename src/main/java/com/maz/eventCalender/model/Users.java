@@ -1,4 +1,4 @@
-package com.techprimers.db.model;
+package com.maz.eventCalender.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

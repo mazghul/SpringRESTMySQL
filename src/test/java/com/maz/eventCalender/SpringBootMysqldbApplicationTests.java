@@ -1,4 +1,4 @@
-package com.techprimers.db;
+package com.maz.eventCalender;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
