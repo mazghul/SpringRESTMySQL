@@ -1,6 +1,7 @@
 package com.maz.eventCalender.resource;
 
 import com.maz.eventCalender.model.Event;
+import com.maz.eventCalender.model.LoadEventResponse;
 import com.maz.eventCalender.repository.EventRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,21 @@ public class EventResource {
     }
 
     @PostMapping(value = "/load")
-    public List<Event> persist(@RequestBody final Event event) {
-        eventRepository.save(event);
-        return eventRepository.findAll();
+    public LoadEventResponse persist(@RequestBody final Event event) {
+        Event event1 = eventRepository.save(event);
+        LoadEventResponse loadEventResponse = new LoadEventResponse();
+        try{
+            if(event1 != null && event1.getId() >0 ){
+
+                loadEventResponse.setResponseCode("200");
+                loadEventResponse.setMessage("Event Added Sucessfully");
+                loadEventResponse.setResponse(eventRepository.findAll());
+            }
+        } catch (Exception e){
+            loadEventResponse.setResponseCode("400");
+            loadEventResponse.setMessage("Error in Adding Event");
+        }
+        return loadEventResponse;
     }
 
     @GetMapping(value = "/{toEmailId}")
