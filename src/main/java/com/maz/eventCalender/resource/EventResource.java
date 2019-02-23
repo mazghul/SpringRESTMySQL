@@ -41,8 +41,13 @@ public class EventResource {
 
     @GetMapping(value = "/{toEmailId}")
     public List<Event> getData(@PathVariable String toEmailId) {
-
-        return eventRepository.findByToEmailId(toEmailId);
+        return eventRepository.findByEmail(toEmailId);
     }
+
+
+    /*@GetMapping(value = "/getEvents/{startDate}/{endDate}")
+    public List<Event> getEventsByPeriod(@PathVariable String startDate, @PathVariable String endDate) {
+        return eventRepository.getEventsByPeriod(startDate, endDate);
+    }*/
 
 }
