@@ -39,10 +39,32 @@ public class EventResource {
         return loadEventResponse;
     }
 
-    @GetMapping(value = "/{toEmailId}")
-    public List<Event> getData(@PathVariable String toEmailId) {
+    @GetMapping("findByEmail/{toEmailId:.+}")
+    public LoadEventResponse getData(@PathVariable(value = "toEmailId") String toEmailId){
+        LoadEventResponse loadEventResponse = new LoadEventResponse();
 
-        return eventRepository.findByToEmailId(toEmailId);
+        try {
+            //System.out.println(toEmailId);
+            List<Event> events = eventRepository.findByToEmail(toEmailId);
+            loadEventResponse.setResponseCode("200");
+            loadEventResponse.setMessage("Events Listed Sucessfully");
+            loadEventResponse.setResponse(events);
+        } catch(Exception e) {
+            loadEventResponse.setResponseCode("400");
+            loadEventResponse.setMessage("Error in Adding Event");
+        }
+        return loadEventResponse;
     }
 
+    @GetMapping(value="/getEventsByPeriod")
+    @ResponseBody
+    public LoadEventResponse getEventsByPeriod(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate){
+        LoadEventResponse loadEventResponse = new LoadEventResponse();
+        //System.out.println(startDate+" " + endDate);
+        List<Event> events = eventRepository.getEventsByPeriod(startDate, endDate);
+        loadEventResponse.setResponseCode("200");
+        loadEventResponse.setMessage("Events Listed Sucessfully");
+        loadEventResponse.setResponse(events);
+        return loadEventResponse;
+    }
 }
