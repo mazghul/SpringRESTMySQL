@@ -19,5 +19,4 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
             " OR (:endDate between start_date and end_date)", nativeQuery = true)
     List<Event> getEventsByPeriod(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
-    //SELECT * FROM `event`where (start_date BETWEEN "2019-01-01T09:00" and  "2019-01-01T11:00") or (end_date BETWEEN "2019-01-01T09:00" and  "2018-01-01T11:00")
 }
