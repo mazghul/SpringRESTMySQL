@@ -1,9 +1,11 @@
 package com.maz.eventCalender.resource;
 
 import com.maz.eventCalender.model.Event;
+import com.maz.eventCalender.model.IotMan;
 import com.maz.eventCalender.model.LoadEventResponse;
 import com.maz.eventCalender.repository.EventRepository;
 
+import com.maz.eventCalender.repository.IomanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,8 @@ public class EventResource {
 
     @Autowired
     EventRepository eventRepository;
+    @Autowired
+    IomanRepository iomanRepository;
 
     @GetMapping(value = "/all")
     public List<Event> getAll() {
@@ -66,5 +70,10 @@ public class EventResource {
         loadEventResponse.setMessage("Events Listed Sucessfully");
         loadEventResponse.setResponse(events);
         return loadEventResponse;
+    }
+
+    @GetMapping(value = "/allManu")
+    public List<IotMan> getAllTemp() {
+        return iomanRepository.findAll();
     }
 }
