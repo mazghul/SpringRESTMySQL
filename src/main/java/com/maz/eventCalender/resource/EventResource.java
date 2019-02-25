@@ -3,6 +3,7 @@ package com.maz.eventCalender.resource;
 import com.maz.eventCalender.model.Event;
 import com.maz.eventCalender.model.IotMan;
 import com.maz.eventCalender.model.LoadEventResponse;
+import com.maz.eventCalender.model.LoadIoTResponse;
 import com.maz.eventCalender.repository.EventRepository;
 
 import com.maz.eventCalender.repository.IomanRepository;
@@ -73,7 +74,11 @@ public class EventResource {
     }
 
     @GetMapping(value = "/allManu")
-    public List<IotMan> getAllTemp() {
-        return iomanRepository.findAll();
+    public LoadIoTResponse getAllTemp() {
+        LoadIoTResponse loadIoTResponse = new LoadIoTResponse();
+        loadIoTResponse.setResponseCode("200");
+        loadIoTResponse.setMessage("Event Added Sucessfully");
+        loadIoTResponse.setResponse(iomanRepository.findAll());
+        return loadIoTResponse;
     }
 }
