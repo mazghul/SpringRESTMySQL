@@ -73,6 +73,38 @@ public class EventResource {
         return loadEventResponse;
     }
 
+    @GetMapping(value="/getAllEvents")
+    @ResponseBody
+    public LoadEventResponse getAllEvents(){
+        LoadEventResponse loadEventResponse = new LoadEventResponse();
+        //System.out.println(startDate+" " + endDate);
+        List<Event> events = eventRepository.findAll();
+        loadEventResponse.setResponseCode("200");
+        loadEventResponse.setMessage("Events Listed Sucessfully");
+        loadEventResponse.setResponse(events);
+        return loadEventResponse;
+    }
+
+    @GetMapping(value="/deleteEventById")
+    @ResponseBody
+    public LoadEventResponse deleteEventById(@RequestParam("id") int id){
+        LoadEventResponse loadEventResponse = new LoadEventResponse();
+        eventRepository.delete(id);
+        loadEventResponse.setResponseCode("200");
+        loadEventResponse.setMessage("Events Del Sucessfully");
+        return loadEventResponse;
+    }
+
+    @PostMapping(value = "/updateEventsByEmail")
+    public LoadEventResponse updateEventsByEmail(@RequestBody final Event event) {
+        eventRepository.updateEventsByEmail(event.getId(), event.getToEmailId(), event.getSubject(), event.getAttachment());
+        LoadEventResponse loadEventResponse = new LoadEventResponse();
+        loadEventResponse.setResponseCode("200");
+        loadEventResponse.setMessage("Event Added Sucessfully");
+        return loadEventResponse;
+    }
+
+
     @GetMapping(value = "/allManu")
     public LoadIoTResponse getAllTemp() {
         LoadIoTResponse loadIoTResponse = new LoadIoTResponse();
